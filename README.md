@@ -61,14 +61,14 @@ Start speaking, you'll see Real-time transcript on [webhook.site ](https://webho
 
 ## Omi Agent Plugin
 
-Omi Agent is a community-built plugin that lets your Omi device listen for trigger phrases like **“Hey Omi”**, understand your question, and respond naturally.
+Omi Agent is a community-built plugin that lets your Omi device listen for trigger phrases like **“Omi”**, understand your question, and respond naturally.
 
 This plugin uses a simple webhook to process voice input and send replies through Omi notifications, giving you a hands-free conversational experience.
 
 ### How it works
 
 1. Omi streams real-time speech to your webhook endpoint.  
-2. The plugin detects trigger phrases such as **“Hey Omi”**.  
+2. The plugin detects trigger phrases such as **“Omi”**.  
 3. The spoken question is transcribed and sent for processing.  
 4. A short, relevant reply is generated and sent back to Omi.  
 
@@ -91,7 +91,7 @@ Then copy your server URL (e.g. `https://your-domain.com/webhook`) into the **Om
 
 ## Example Response
 
-> **You:** "Hey Omi, what's the weather like today?"  
+> **You:** "Omi, what's the weather like today?"  
 > **Omi:** "Looks sunny and 25°C where you are!"
 
 ---

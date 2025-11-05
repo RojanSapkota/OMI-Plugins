@@ -42,10 +42,8 @@ router = APIRouter()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Modify trigger phrases and add buffer for partial triggers
-TRIGGER_PHRASES = ["hey omi", "hey, omi"]  # Base triggers
-PARTIAL_FIRST = ["hey", "hey,"]  # First part of trigger
-PARTIAL_SECOND = ["omi"]  # Second part of trigger
+# Modify trigger phrases - now just looking for "omi" followed by a question
+TRIGGER_PHRASES = ["omi"]  # Base trigger - just "omi"
 QUESTION_AGGREGATION_TIME = 10  # seconds to wait for collecting the question
 
 
@@ -175,8 +173,8 @@ async def root():
 
 @router.post('/webhook')
 async def webhook(request: WebhookRequest):
-    logger.info("Received webhook POST request")
-    logger.info(f"Received data: {request.dict()}")
+    #logger.info("Received webhook POST request")
+    #logger.info(f"Received data: {request.dict()}")
 
     session_id = request.session_id
     uid = request.uid or session_id  # Use session_id as uid if uid is not provided
@@ -219,12 +217,13 @@ async def webhook(request: WebhookRequest):
         text = segment['text'].lower().strip()
         logger.info(f"Processing text segment: '{text}'")
 
-        # Check for complete trigger phrases first
+        # Check for trigger phrase "omi" at the start of text
         trigger_found = False
         for trigger in [t.lower() for t in TRIGGER_PHRASES]:
-            if trigger in text:
+            # Look for "omi" as a word (with word boundaries)
+            if text.startswith(trigger) or f" {trigger} " in f" {text} " or text.startswith(f"{trigger},") or text.startswith(f"{trigger} "):
                 trigger_found = True
-                logger.info(f"Complete trigger phrase detected in session {session_id}")
+                logger.info(f"Trigger phrase 'omi' detected in session {session_id}")
                 buffer_data['trigger_detected'] = True
                 buffer_data['trigger_time'] = current_time
                 buffer_data['collected_question'] = []
@@ -232,7 +231,7 @@ async def webhook(request: WebhookRequest):
                 buffer_data['partial_trigger'] = False
 
                 # Extract any question part that comes after the trigger
-                # Handle both "omi," and "omi." and "omi "
+                # Handle "omi," "omi." "omi " etc.
                 parts = text.split(trigger, 1)
                 if len(parts) > 1:
                     question_part = parts[1].strip().lstrip('.,!? ')
@@ -262,37 +261,6 @@ async def webhook(request: WebhookRequest):
         
         if trigger_found:
             continue
-
-        # Check for partial triggers
-        if not buffer_data['trigger_detected']:
-            # Check for first part of trigger
-            if any(text.endswith(part.lower()) for part in PARTIAL_FIRST):
-                logger.info(f"First part of trigger detected in session {session_id}")
-                buffer_data['partial_trigger'] = True
-                buffer_data['partial_trigger_time'] = current_time
-                continue
-
-            # Check for second part if we're waiting for it
-            if buffer_data['partial_trigger']:
-                time_since_partial = current_time - buffer_data['partial_trigger_time']
-                if time_since_partial <= 2.0:  # 2 second window to complete the trigger
-                    if any(part.lower() in text.lower() for part in PARTIAL_SECOND):
-                        logger.info(f"Complete trigger detected across segments in session {session_id}")
-                        buffer_data['trigger_detected'] = True
-                        buffer_data['trigger_time'] = current_time
-                        buffer_data['collected_question'] = []
-                        buffer_data['response_sent'] = False
-                        buffer_data['partial_trigger'] = False
-
-                        # Extract any question part that comes after "omi"
-                        question_part = text.split('omi,')[-1].strip() if 'omi,' in text.lower() else ''
-                        if question_part:
-                            buffer_data['collected_question'].append(question_part)
-                            logger.info(f"Collected question part from second trigger part: {question_part}")
-                        continue
-                else:
-                    # Reset partial trigger if too much time has passed
-                    buffer_data['partial_trigger'] = False
 
         # If trigger was detected, collect the question
         if buffer_data['trigger_detected'] and not buffer_data['response_sent'] and not has_processed:
