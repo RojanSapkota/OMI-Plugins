@@ -21,7 +21,7 @@ transcriptions of meetings, chats, and voice memos wherever you are.
 
 </div>
 
-[//]: # "## Features"
+[//]: # "## Wearable Features"
 [//]: #
 [//]: # "- **Real-Time AI Audio Processing**: Leverage powerful on-device AI capabilities for real-time audio analysis."
 [//]: # "- **Low-powered Bluetooth**: Capture audio for 24h+ on a small button battery"
@@ -58,6 +58,48 @@ Start speaking, you'll see Real-time transcript on [webhook.site ](https://webho
 - [Build the device](https://docs.omi.me/doc/assembly/Build_the_device/)
 - [Install firmware](https://docs.omi.me/doc/get_started/Flash_device/)
 - [Create your own app in 1 minute](https://docs.omi.me/doc/developer/apps/Introduction).
+
+## Omi Agent Plugin
+
+Omi Agent is a community-built plugin that lets your Omi device listen for trigger phrases like **“Hey Omi”**, understand your question, and respond naturally.
+
+This plugin uses a simple webhook to process voice input and send replies through Omi notifications, giving you a hands-free conversational experience.
+
+### How it works
+
+1. Omi streams real-time speech to your webhook endpoint.  
+2. The plugin detects trigger phrases such as **“Hey Omi”**.  
+3. The spoken question is transcribed and sent for processing.  
+4. A short, relevant reply is generated and sent back to Omi.  
+
+You can customize this behavior by editing the webhook logic in your server.
+
+### Quick Deploy
+
+You can deploy your own version easily with:
+
+```bash
+git clone https://github.com/rojansapkota/omi-agent
+cd omi-agent
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Then copy your server URL (e.g. `https://your-domain.com/webhook`) into the **Omi App** webhook field.
+
+---
+
+## Example Response
+
+> **You:** "Hey Omi, what's the weather like today?"  
+> **Omi:** "Looks sunny and 25°C where you are!"
+
+---
+
+## License
+
+This plugin is released under the **MIT License**, following the spirit of openness in the Omi ecosystem.
+
 
 ## Contributions
 
