@@ -59,6 +59,54 @@ Start speaking, you'll see Real-time transcript on [webhook.site ](https://webho
 - [Install firmware](https://docs.omi.me/doc/get_started/Flash_device/)
 - [Create your own app in 1 minute](https://docs.omi.me/doc/developer/apps/Introduction).
 
+<<<<<<< HEAD
+=======
+## Omi Agent Plugin
+
+Omi Agent is a community-built plugin that lets your Omi device listen for trigger phrases like **“Omi”**, understands your question, and respond naturally.
+
+This plugin uses a simple webhook to process voice input and send replies through Omi notifications, giving you a hands-free conversational experience.
+
+### How it works
+
+1. Omi streams real-time speech to your webhook endpoint.  
+2. The plugin detects trigger phrases such as **“Omi”**.  
+3. The spoken question is transcribed and sent for processing.  
+4. A short, relevant reply is generated and sent back to Omi.  
+
+You can customize this behavior by editing the webhook logic in your server.
+
+### Quick Deploy
+
+You can deploy your own version easily with:
+
+```bash
+git clone https://github.com/rojansapkota/omi-agent
+cd omi-agent
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+Then copy your server URL (e.g. `https://your-domain.com/webhook`) into the **Omi App** webhook field.
+
+---
+
+## Example Response
+
+> **You:** "Omi, What's the Capital of USA"  
+> **Omi:** "The capital of the United States of America is Washington, D.C. (short for District of Columbia)."
+
+---
+
+<h2 align="left">👤 Profile Visitors:</h2>
+<p align="left">
+<a href="https://rojansapkota.com.np" target="_blank">
+<img src="https://profile-counter.deno.dev/RojanSapkota-OMI-Agent/count.svg" alt="Visitor Counter"/>
+</a>
+</p>
+
+
+>>>>>>> b2dfd1dac6ceb354a17a8d372370337408178176
 ## License
 
 This plugin is released under the **MIT License**, following the spirit of openness in the Omi ecosystem.
