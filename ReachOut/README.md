@@ -22,6 +22,7 @@ git clone https://github.com/rojansapkota/omi-plugins
 cd reachout
 pip install -r requirements.txt
 uvicorn main:app --reload
+```
 
 Then copy your server URL (e.g., `https://your-domain.com/webhook`) into the **Omi App** webhook field.
 
