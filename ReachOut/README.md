@@ -1,24 +1,3 @@
-<div align="center">
-
-# **ReachOut**
-
-Meet **ReachOut**, the world’s leading open-source AI wearable plugin that lets you stay connected with friends, family, and partners. Simply pair with your contacts and send notifications with phrases like “I miss you” or “Ping [Name],” all hands-free through your Omi device.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/834d3fdb-31b5-4f22-ae35-da3d2b9a8f59" alt="Omi" width="49%" />
-  <img src="https://github.com/user-attachments/assets/fdad4226-e5ce-4c55-b547-9101edfa3203" alt="Image" width="49%" />
-</p>
-
-![CleanShot 2025-02-08 at 18 22 23](https://github.com/user-attachments/assets/7a658366-9e02-4057-bde5-a510e1f0217a)
-
-<h3>
-[Site](https://omi.me/) | [Download](https://omi.me/download) | [Docs](https://docs.omi.me/) | [Buy Omi Dev Kit](https://www.omi.me/products/omi-dev-kit-2) | [Buy Omi Glass Dev Kit](https://www.omi.me/glass)
-</h3>
-
-</div>
-
----
-
 ## ReachOut Plugin
 
 **ReachOut** is a community-built plugin that lets your Omi device listen for personalized phrases like **“I miss you [Name]”** or **“Ping [Name] [Message]”**, and send notifications to paired contacts instantly.
